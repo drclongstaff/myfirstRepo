@@ -32,7 +32,7 @@ fluidPage(
                                                                               ), selected = "Raw data"), 
       
       
-      helpText("Please cite this page if you find it useful, Longstaff C, 2016, Shiny App for analysing enzyme kinetics, version 0.4,
+      helpText("Please cite this page if you find it useful, Longstaff C, 2016, Shiny App for analysing enzyme kinetics, version 0.55,
                URL address, last accessed", Sys.Date())
    
     
@@ -63,7 +63,9 @@ fluidPage(
                                   tags$br(),
                                   "►The supplied data includes replicates",
                                   tags$br(), 
-                                  "►Other sets of data can be fitted for the means and 3 points only, <km, ~Km and >Km (see table below)",
+                                  "►Alternative sets of data can be fitted for the means",
+                                  tags$br(),
+                                  "►Or for 3 points, below Km, around Km and greater than Km",
                                   tags$br(), 
                                   "►You can choose non-linear regression or select a linear transformation",
                                   tags$br(),

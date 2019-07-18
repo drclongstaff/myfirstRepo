@@ -77,13 +77,14 @@ function(input, output){
     
     #fitMM<-nls(V~Vmax*S/(Km+S), start=list(Vmax=Vmaxlm.h, Km=Kmlm.h))
     fitMM<- nls(V~SSmicmen(S,Vmaxlm.h,Kmlm.h))
-    fitted<- predict(fitMM)
+    xpred<- seq(0, max(S), length.out=50)
+    ypred<- predict(fitMM, list(S=xpred))
     Vmax<- signif(coef(fitMM)[1], digits=4)
     Km<- signif(coef(fitMM)[2], digits=4)
     crcNls<-signif(cor(V, predict(fitMM)), digits = 4)
     
       switch(input$raw,
-             "Raw data"=plot(S,V, main="Raw data", pch=5, xlab=input$colmnamesx, ylab=input$colmnamesy, xlim= c(0, max(S)), ylim = c(0, Vmax*1.1), lines(S, fitted),lwd=2),
+             "Raw data"=plot(S,V, main="Raw data", pch=5, xlab=input$colmnamesx, ylab=input$colmnamesy, xlim= c(0, max(S)), ylim = c(0, Vmax*1.1), lines(xpred,ypred, col="red", lwd=2),lwd=2),
             
              "Hanes"=plot(X.h,Y.h, main="Hanes plot", pch=17, xlab=input$colmnamesy, ylab=paste(input$colmnamesx,"/", input$colmnamesy), xlim= c(0, max(X.h)), ylim = c(0, max(Y.h)), abline(lm(Y.h~X.h), col="red", lwd=2)),
              "Lineweaver-Burk"=plot(X.l,Y.l, main="Lineweaver-Burk plot", pch=17, xlab=paste("1/", input$colmnamesx), ylab=paste("1/", input$colmnamesy), xlim= c(0, max(X.l)), ylim = c(0, max(Y.l)), abline(lm(Y.l~X.l), col="red", lwd=2)),
